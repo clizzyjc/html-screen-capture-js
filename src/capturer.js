@@ -95,7 +95,7 @@ export default class Capturer {
 		let classStr = '';
 		for (let i = 0; i < computedStyle.length; i++) {
 			const property = computedStyle.item(i);
-			const value = computedStyle.getPropertyValue(property);
+			let value = property == 'height'?  domElm.getBoundingClientRect().height:computedStyle.getPropertyValue(property);
 			const mapKey = property + ':' + value;
 			let className = this._classMap[mapKey];
 			if (!className) {
@@ -103,7 +103,11 @@ export default class Capturer {
 				className = (this._options.prefixForNewGeneratedClasses ? this._options.prefixForNewGeneratedClasses : 'c') + this._classCount;
 				this._classMap[mapKey] = className;
 			}
-			classStr += (className + ' ');
+			if ( ((domElm.tagName == 'TR' && value < 45 ) || domElm.tagName == 'TD' || (domElm.tagName == 'SPAN' && value < 45)) && property == 'height'){
+				delete this._classMap[mapKey];
+			}else {
+				classStr += (className + ' ');
+			}
 		}
 		if (classStr) {
 			newElm.setAttribute('class', classStr.trim());
