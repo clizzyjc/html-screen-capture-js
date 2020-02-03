@@ -266,7 +266,7 @@ var Capturer = function () {
 					className = (this._options.prefixForNewGeneratedClasses ? this._options.prefixForNewGeneratedClasses : 'c') + this._classCount;
 					this._classMap[mapKey] = className;
 				}
-				if ((domElm.tagName == 'TR' && value < 45 || domElm.tagName == 'TD' || domElm.tagName == 'SPAN' && value < 45) && property == 'height') {
+				if ((domElm.tagName == 'TR' && value < 45 || domElm.tagName == 'TD' || domElm.tagName == 'PRE' && value < 45 || domElm.tagName == 'SPAN' && value < 45) && property == 'height') {
 					delete this._classMap[mapKey];
 				} else {
 					classStr += className + ' ';
